@@ -17,19 +17,26 @@ public class UserInfoService {
 	
 	public Optional<User> getUserById(int id)
 	{
-		Optional<User> userDetail = repo.findById(id);
+		Optional<User> user = repo.findById(id);
 
-		return userDetail == null ? null: userDetail;
+		return user == null ? Optional.empty(): user;
 	}
 	
 	public String addUser(User user)
 	{
-		repo.save(user);
-		return "User added successfully.";
+		List<User> userList = repo.findByEmail(user.getEmail());
+		if(userList.isEmpty())
+		{
+			repo.save(user);
+			return "User added successfully.";			
+		}
+			
+		return "This email already in use. Use another email.";
 	}
 
 	public List<User> getAllUsers() {
 		
 		return repo.findAll();
 	}
+
 }
