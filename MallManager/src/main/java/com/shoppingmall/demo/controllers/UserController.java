@@ -1,5 +1,6 @@
 package com.shoppingmall.demo.controllers;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +22,15 @@ public class UserController {
 		return service.addUser(user);
 	}
 	
-	@GetMapping("/userProfile/{id}")
+	@GetMapping("/profile/{id}")
 	public Optional<User> getUser(@PathVariable("id") int id)
 	{
 		return service.getUserById(id);
+	}
+	
+	@GetMapping("/allusers")
+	public List<User> getAllUsers()
+	{
+		return service.getAllUsers();
 	}
 }

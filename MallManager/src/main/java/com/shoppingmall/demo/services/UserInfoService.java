@@ -1,6 +1,7 @@
 package com.shoppingmall.demo.services;
 
 import java.util.Optional;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,5 +26,10 @@ public class UserInfoService {
 	{
 		repo.save(user);
 		return "User added successfully.";
+	}
+
+	public List<User> getAllUsers() {
+		
+		return repo.findAll();
 	}
 }
