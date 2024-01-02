@@ -14,11 +14,11 @@ public class UserInfoService {
 	@Autowired
 	private UserRepo repo;
 	
-	public Optional<User> getUserInfo(int id)
+	public Optional<User> getUserById(int id)
 	{
-		Optional<User> userDetail = Optional.of(repo.findById(id).orElse(null));
+		Optional<User> userDetail = repo.findById(id);
 
-		return userDetail;
+		return userDetail == null ? null: userDetail;
 	}
 	
 	public String addUser(User user)
