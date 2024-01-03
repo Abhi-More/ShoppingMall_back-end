@@ -4,6 +4,8 @@ import java.util.Optional;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import com.shoppingmall.demo.models.User;
@@ -39,4 +41,21 @@ public class UserInfoService {
 		return repo.findAll();
 	}
 
+	public ResponseEntity<User> updateUser(Integer id, User user) {
+		Optional<User> existingUser = repo.findById(id);
+
+		if(existingUser.isPresent()){
+			User newUser = existingUser.get();
+			if(user.getEmail() != null){
+				newUser.setEmail(user.getEmail());
+			}
+			if(user.getPassword() != null){
+				newUser.setPassword(user.getPassword());
+			}
+			repo.save(newUser);
+			return new ResponseEntity<>(newUser, HttpStatus.OK);
+		}
+		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+	}
 }
