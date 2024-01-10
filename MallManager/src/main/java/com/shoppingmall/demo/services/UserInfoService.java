@@ -56,6 +56,18 @@ public class UserInfoService {
 			return new ResponseEntity<>(newUser, HttpStatus.OK);
 		}
 		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-
 	}
+	
+	public ResponseEntity<User> deleteUser(Integer id)
+	{
+		Optional<User> existingUser = repo.findById(id);
+		
+		if(existingUser.isPresent())
+		{
+			repo.deleteById(id);
+			return new ResponseEntity<>(HttpStatus.OK);
+		}
+		
+		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+ 	}
 }
