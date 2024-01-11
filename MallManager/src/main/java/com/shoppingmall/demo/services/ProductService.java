@@ -1,10 +1,12 @@
 package com.shoppingmall.demo.services;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.shoppingmall.demo.models.Product;
 import com.shoppingmall.demo.repositories.ProductRepo;
@@ -15,17 +17,25 @@ public class ProductService {
 	@Autowired
 	private ProductRepo repo;
 	
-	public String addProduct(Product product)
-	{
-		Optional<Product> prod = repo.findById(product.getId());
-		if(prod.isPresent())
-		{
-			return "Product with same id exist";
-		}
+	public void addProduct(String name, String category, float price, MultipartFile image) throws IOException {
+		Product product = new Product();
+		product.setName(name);
+        product.setCategory(category);
+        product.setPrice(price);
+        product.setImage(image.getBytes());
+        repo.save(product);
 		
-		repo.save(product);
-		return "Product Added Successfully.";
 	}
+	
+	public byte[] getProductImage(Integer id) {
+        Product product = repo.findById(id).orElse(null);
+
+        if (product != null) {
+            return product.getImage();
+        } else {
+            return null;
+        }
+    }
 	
 	public List<Product> getAllProduct() 
 	{
@@ -52,4 +62,5 @@ public class ProductService {
 	{
 		return repo.findByCategory(category);
 	}
+
 }
