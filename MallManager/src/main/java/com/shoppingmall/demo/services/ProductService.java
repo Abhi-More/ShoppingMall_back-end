@@ -42,9 +42,9 @@ public class ProductService {
 		return repo.findAll();
 	}
 	 	 
-	public Product getProduct(Integer id) 
+	public Optional<Product> getProduct(Integer id) 
 	{
-		return repo.findById(id).get();
+		return repo.findById(id);
 	}
 	 
 	public String deleteProduct(Integer id) 

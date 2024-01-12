@@ -19,9 +19,7 @@ public class UserInfoService {
 	
 	public Optional<User> getUserById(int id)
 	{
-		Optional<User> user = repo.findById(id);
-
-		return user == null ? Optional.empty(): user;
+		return repo.findById(id);
 	}
 	
 	public String addUser(User user)

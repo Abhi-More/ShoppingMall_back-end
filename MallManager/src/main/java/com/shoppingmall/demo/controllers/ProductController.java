@@ -2,6 +2,7 @@ package com.shoppingmall.demo.controllers;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -28,7 +29,7 @@ public class ProductController {
 	private ProductService service;
 	
 	@GetMapping("/{id}")
-	public Product getById(@PathVariable("id") Integer id)
+	public Optional<Product> getById(@PathVariable("id") Integer id)
 	{
 		return service.getProduct(id);
 	}
