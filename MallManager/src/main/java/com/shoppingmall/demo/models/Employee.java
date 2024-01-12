@@ -21,10 +21,6 @@ public class Employee {
 	private String address;
 	private String designation;
 	
-	@ManyToOne
-	@JoinTable(name = "Shop_Employee")
-	private Shop shop;
-	
 	public Employee() {
 		super();
 	}
@@ -63,11 +59,5 @@ public class Employee {
 	}
 	public void setDesignation(String designation) {
 		this.designation = designation;
-	}
-	public Shop getShop_id() {
-		return shop;
-	}
-	public void setShop_id(Shop shop) {
-		this.shop = shop;
 	}
 }

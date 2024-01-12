@@ -19,8 +19,8 @@ public class Shop {
 	private String name;
 	private String shopCategory;
 	
-	@OneToMany(mappedBy = "shop")
-	private List<Employee> employee;
+//	@OneToMany(mappedBy = "shop")
+//	private List<Employee> employee;
 	
 	private String shopStatus;
 	
@@ -50,12 +50,12 @@ public class Shop {
 	public void setShopCategory(String shopCategory) {
 		this.shopCategory = shopCategory;
 	}
-	public List<Employee> getEmployee() {
-		return employee;
-	}
-	public void setEmployee(List<Employee> employee) {
-		this.employee = employee;
-	}
+//	public List<Employee> getEmployee() {
+//		return employee;
+//	}
+//	public void setEmployee(List<Employee> employee) {
+//		this.employee = employee;
+//	}
 	public String getShopStatus() {
 		return shopStatus;
 	}
