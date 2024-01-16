@@ -17,6 +17,7 @@ public class Employee {
 	
 	private String name;
 	private LocalDate dob;
+	private LocalDate dateOfJoining;
 	private float slary;
 	private String address;
 	private String designation;
@@ -59,5 +60,11 @@ public class Employee {
 	}
 	public void setDesignation(String designation) {
 		this.designation = designation;
+	}
+	public LocalDate getDateOfJoining() {
+		return dateOfJoining;
+	}
+	public void setDateOfJoining(LocalDate dateOfJoining) {
+		this.dateOfJoining = dateOfJoining;
 	}
 }

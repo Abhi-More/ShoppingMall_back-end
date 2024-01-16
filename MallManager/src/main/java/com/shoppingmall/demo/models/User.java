@@ -14,7 +14,14 @@ public class User {
 	private int id;
 	
 	private String name;
+	
+	// type = Admin or null
 	private String type;
+	// male/female/other
+	private String gender;
+	private String email;
+	private String password;
+	
 	public User() {
 		super();
 	}
@@ -53,7 +60,11 @@ public class User {
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	private String email;
-	private String password;
+	public String getGender() {
+		return gender;
+	}
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
 
 }
