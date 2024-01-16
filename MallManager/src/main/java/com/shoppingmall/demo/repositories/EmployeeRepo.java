@@ -4,6 +4,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.shoppingmall.demo.models.Employee;
 
-public interface EmployeeRepo extends JpaRepository<Employee, Integer>{
+import java.util.Optional;
 
+public interface EmployeeRepo extends JpaRepository<Employee, String>{
+    public Optional<Employee> findBycontactNo(String contactNo);
+    public Optional<Employee> deleteBycontactNo(String contactNo);
 }
