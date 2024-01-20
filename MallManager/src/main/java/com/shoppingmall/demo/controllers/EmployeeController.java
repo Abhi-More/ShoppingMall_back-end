@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/employee")
 public class EmployeeController {
@@ -18,6 +20,14 @@ public class EmployeeController {
 
         return empService.getEmployeeById(id);
     }
+
+    @GetMapping("/all")
+    public List<Employee> getAllEmployee(){
+
+        return empService.getAllEmployee();
+    }
+
+
 
     @PostMapping
     public ResponseEntity<String> addEmployee(@RequestBody Employee emp){
