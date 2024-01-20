@@ -6,7 +6,7 @@ import com.shoppingmall.demo.models.Employee;
 
 import java.util.Optional;
 
-public interface EmployeeRepo extends JpaRepository<Employee, String>{
+public interface EmployeeRepo extends JpaRepository<Employee, Integer>{
     public Optional<Employee> findBycontactNo(String contactNo);
     public Optional<Employee> deleteBycontactNo(String contactNo);
 
