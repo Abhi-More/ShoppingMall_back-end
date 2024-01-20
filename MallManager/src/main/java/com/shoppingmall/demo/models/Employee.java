@@ -9,16 +9,52 @@ import jakarta.persistence.Id;
 
 @Entity
 public class Employee {
-//	@Id
-//	@GeneratedValue(strategy = GenerationType.IDENTITY)
-//	private int empId;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int empId;
 	private String name;
-	@Id()
+	private String email;
 	private String contactNo;
+
+	private String position;
 	private String dateOfJoining;
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getPosition() {
+		return position;
+	}
+
+	public void setPosition(String position) {
+		this.position = position;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public int getEmpId() {
+		return empId;
+	}
+
+	public void setEmpId(int empId) {
+		this.empId = empId;
+	}
+
 	private float salary;
 	private String address;
 	private String designation;
+	private String password;
 
 
 	public String getName() {
