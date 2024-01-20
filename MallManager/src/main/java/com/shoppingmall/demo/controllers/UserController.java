@@ -13,6 +13,7 @@ import com.shoppingmall.demo.services.UserInfoService;
 
 @RestController
 @RequestMapping("/user")
+@CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE, RequestMethod.OPTIONS})
 public class UserController {
 	@Autowired
 	private UserInfoService service;
