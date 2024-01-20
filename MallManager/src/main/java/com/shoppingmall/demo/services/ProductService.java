@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.shoppingmall.demo.models.Orders;
 import com.shoppingmall.demo.models.Product;
+import com.shoppingmall.demo.repositories.OrderRepo;
 import com.shoppingmall.demo.repositories.ProductRepo;
 
 @Service
@@ -16,6 +18,9 @@ public class ProductService {
 	
 	@Autowired
 	private ProductRepo repo;
+	
+	@Autowired
+	private OrderRepo orderRepo;
 	
 	public void addProduct(String name, String category, float price, MultipartFile image) throws IOException {
 		Product product = new Product();
@@ -52,7 +57,12 @@ public class ProductService {
 		Optional<Product> prod = repo.findById(id);
 		if(prod.isPresent())
 		{
+			List<Orders> orderList = orderRepo.findByProductId(id);
+			for(Orders o: orderList)
+				orderRepo.deleteById(o.getOrderId());
 			repo.deleteById(id);
+			
+			orderRepo.deleteById(id);;
 			return "Product Deleted";
 		}
 		return "Product Not Found";
