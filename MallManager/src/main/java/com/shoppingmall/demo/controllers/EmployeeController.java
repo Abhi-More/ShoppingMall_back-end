@@ -16,11 +16,6 @@ public class EmployeeController {
 
     @Autowired
     EmployeeService empService;
-    @GetMapping("/{id}")
-    public ResponseEntity<Employee> getEmployee(@PathVariable String id){
-
-        return empService.getEmployeeById(id);
-    }
 
     @GetMapping("/all")
     public List<Employee> getAllEmployee(){
@@ -28,6 +23,11 @@ public class EmployeeController {
         return empService.getAllEmployee();
     }
 
+    @GetMapping("/uid/{id}")
+    public ResponseEntity<Employee> getEmployee(@PathVariable String id){
+    	
+    	return empService.getEmployeeById(id);
+    }
 
 
     @PostMapping

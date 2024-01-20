@@ -1,5 +1,6 @@
 package com.shoppingmall.demo.controllers;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,7 +16,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.shoppingmall.demo.models.Orders;
+import com.shoppingmall.demo.models.Product;
+import com.shoppingmall.demo.repositories.ProductRepo;
 import com.shoppingmall.demo.services.OrderService;
+import com.shoppingmall.demo.services.ProductService;
 
 @RestController
 @RequestMapping("/order")
@@ -25,6 +29,9 @@ public class OrderController {
 	@Autowired
 	OrderService service;
 	
+	@Autowired
+	ProductService productService;
+	
 	@PostMapping("/add")
 	public ResponseEntity<Orders> addOrder(@RequestBody Orders order)
 	{
@@ -32,15 +39,31 @@ public class OrderController {
 	}
 	
 	@GetMapping("/{uid}")
-	public List<Orders> getByUserId(@PathVariable Integer uid)
+	public List<Product> getByUserId(@PathVariable Integer uid)
 	{
-		return service.getByUserId(uid);
+		List<Orders> list = service.getByUserId(uid);
+		List<Product> productList = new ArrayList<>();
+		
+		for(Orders o : list)
+		{
+			productList.add(productService.getProduct(o.getProductId()).orElse(null));
+		}
+		
+		return productList;
 	}
 	
 	@GetMapping("/all")
-	public List<Orders> getAllOrders()
+	public List<Product> getAllOrders()
 	{
-		return service.getAllOrders();
+		List<Orders> list = service.getAllOrders();
+		List<Product> productList = new ArrayList<>();
+		
+		for(Orders o : list)
+		{
+			productList.add(productService.getProduct(o.getProductId()).orElse(null));
+		}
+		
+		return productList;
 	}
 	
 	@DeleteMapping("/delete/{id}")
