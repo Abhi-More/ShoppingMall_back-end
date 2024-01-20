@@ -1,8 +1,8 @@
 package com.shoppingmall.demo.services;
 
+
 import java.util.List;
 import java.util.Optional;
-
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,8 +19,8 @@ public class EmployeeService {
 
 	public ResponseEntity<String> addEmployee(Employee employee) {
 
-		if (repo.findBycontactNo(employee.getContactNo()).isPresent()) {
-			return new ResponseEntity<>("ContactNo already exists", HttpStatus.CONFLICT);
+		if (repo.findByemail(employee.getEmail()).isPresent()) {
+			return new ResponseEntity<>("User already exists with same email", HttpStatus.CONFLICT);
 		}
 
 		// If contactNo is unique, save the employee
