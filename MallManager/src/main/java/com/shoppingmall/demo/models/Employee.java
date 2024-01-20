@@ -15,9 +15,12 @@ public class Employee {
 	private String name;
 	private String email;
 	private String contactNo;
-
-	private String position;
 	private String dateOfJoining;
+	private float salary;
+	private String address;
+	private String password;
+
+	private String designation;
 
 	public String getEmail() {
 		return email;
@@ -25,14 +28,6 @@ public class Employee {
 
 	public void setEmail(String email) {
 		this.email = email;
-	}
-
-	public String getPosition() {
-		return position;
-	}
-
-	public void setPosition(String position) {
-		this.position = position;
 	}
 
 	public String getPassword() {
@@ -50,12 +45,6 @@ public class Employee {
 	public void setEmpId(int empId) {
 		this.empId = empId;
 	}
-
-	private float salary;
-	private String address;
-	private String designation;
-	private String password;
-
 
 	public String getName() {
 		return name;
