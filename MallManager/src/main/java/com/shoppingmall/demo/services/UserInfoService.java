@@ -1,71 +1,42 @@
 package com.shoppingmall.demo.services;
 
-import java.util.Optional;
-import java.util.List;
-
+import com.shoppingmall.demo.config.UserInfoDetails;
+import com.shoppingmall.demo.models.UserInfo;
+import com.shoppingmall.demo.repositories.UserInfoRepository;
+import com.shoppingmall.demo.repositories.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.shoppingmall.demo.models.User;
-import com.shoppingmall.demo.repositories.UserRepo;
+import java.util.Optional;
 
 @Service
-public class UserInfoService {
-	
-	@Autowired
-	private UserRepo repo;
-	
-	public Optional<User> getUserById(int id)
-	{
-		return repo.findById(id);
-	}
-	
-	public String addUser(User user)
-	{
-		List<User> userList = repo.findByEmail(user.getEmail());
-		if(userList.isEmpty())
-		{
-			repo.save(user);
-			return "User added successfully.";			
-		}
-			
-		return "This email already in use. Use another email.";
-	}
+public class UserInfoService implements UserDetailsService {
 
-	public List<User> getAllUsers() {
-		
-		return repo.findAll();
-	}
+    @Autowired
+    private UserInfoRepository repository;
 
-	public ResponseEntity<User> updateUser(Integer id, User user) {
-		Optional<User> existingUser = repo.findById(id);
+    @Autowired
+    private PasswordEncoder encoder;
 
-		if(existingUser.isPresent()){
-			User newUser = existingUser.get();
-			if(user.getEmail() != null){
-				newUser.setEmail(user.getEmail());
-			}
-			if(user.getPassword() != null){
-				newUser.setPassword(user.getPassword());
-			}
-			repo.save(newUser);
-			return new ResponseEntity<>(newUser, HttpStatus.OK);
-		}
-		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-	}
-	
-	public ResponseEntity<User> deleteUser(Integer id)
-	{
-		Optional<User> existingUser = repo.findById(id);
-		
-		if(existingUser.isPresent())
-		{
-			repo.deleteById(id);
-			return new ResponseEntity<>(HttpStatus.OK);
-		}
-		
-		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
- 	}
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+
+        Optional<UserInfo> userDetail = repository.findByemail(username);
+
+        // Converting userDetail to UserDetails
+        return userDetail.map(UserInfoDetails::new)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found " + username));
+    }
+
+    public String addUser(UserInfo userInfo) {
+        userInfo.setPassword(encoder.encode(userInfo.getPassword()));
+        repository.save(userInfo);
+        return "User Added Successfully";
+    }
+
+
 }
