@@ -112,15 +112,18 @@ public class OrderService {
 		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	}
 	
-	public ResponseEntity<String> updateOrder(Integer id)
+	public ResponseEntity<String> updateOrder(Integer uid)
 	{
-		Optional<Orders> existingOrder = orderRepo.findById(id);
-		if(existingOrder.isPresent())
+		List<Orders> pendingOrders = orderRepo.findByUserId(uid);
+		if(pendingOrders.size() > 0)
 		{
-			Orders newOrder = existingOrder.get();
-			newOrder.setStatus("Placed");
-			orderRepo.save(newOrder);
-			return new ResponseEntity<>("Order Placed", HttpStatus.OK);
+			for(Orders o: pendingOrders)
+			{
+				o.setStatus("PLACED");
+				o.setTimeAndDate(new Date().toString());
+				orderRepo.save(o);
+			}
+			return new ResponseEntity<>("Orders Placed", HttpStatus.OK);
 		}
 		return new ResponseEntity<>("Order Not Found", HttpStatus.NOT_FOUND);
 	}

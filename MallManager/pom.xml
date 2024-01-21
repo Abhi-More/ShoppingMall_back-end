@@ -49,6 +49,11 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+		   <groupId>com.braintreepayments.gateway</groupId>
+		   <artifactId>braintree-java</artifactId>
+		   <version>3.11.0</version>
+		</dependency>
 	</dependencies>
 
 	<build>

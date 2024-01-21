@@ -47,7 +47,7 @@ public class OrderController {
 	@GetMapping("/{uid}/placed")
 	public List<OrderProduct> getPlacedByUserId(@PathVariable Integer uid)
 	{		
-		return orderService.getPendingByUserId(uid);
+		return orderService.getPlacedByUserId(uid);
 	}
 	
 	@GetMapping("/all")
@@ -62,10 +62,10 @@ public class OrderController {
 		return orderService.deleteOrder(id);
 	}
 	
-	@PutMapping("/{id}")
-	public ResponseEntity<String> updateStatus(@PathVariable Integer id)
+	@PutMapping("/{uid}")
+	public ResponseEntity<String> updateStatus(@PathVariable Integer uid)
 	{
-		return orderService.updateOrder(id);
+		return orderService.updateOrder(uid);
 	}
 	
 }
