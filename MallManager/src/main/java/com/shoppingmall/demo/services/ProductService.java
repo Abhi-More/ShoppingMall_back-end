@@ -22,12 +22,14 @@ public class ProductService {
 	@Autowired
 	private OrderRepo orderRepo;
 	
-	public void addProduct(String name, String category, float price, MultipartFile image) throws IOException {
+	public void addProduct(String name, String category, float price, MultipartFile image, String description, Integer discount) throws IOException {
 		Product product = new Product();
 		product.setName(name);
         product.setCategory(category);
         product.setPrice(price);
         product.setImage(image.getBytes());
+        product.setDescription(description);
+        product.setDiscount(discount);
         repo.save(product);
 		
 	}

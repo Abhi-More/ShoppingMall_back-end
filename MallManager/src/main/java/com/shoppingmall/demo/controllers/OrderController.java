@@ -20,7 +20,7 @@ import com.shoppingmall.demo.services.OrderService;
 
 @RestController
 @RequestMapping("/order")
-@CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE, RequestMethod.OPTIONS})
+@CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE, RequestMethod.PUT})
 public class OrderController {
 
 	@Autowired

@@ -119,9 +119,12 @@ public class OrderService {
 		{
 			for(Orders o: pendingOrders)
 			{
-				o.setStatus("PLACED");
-				o.setTimeAndDate(new Date().toString());
-				orderRepo.save(o);
+				if(o.getStatus().equals("PENDING"))
+				{
+					o.setStatus("PLACED");
+					o.setTimeAndDate(new Date().toString());
+					orderRepo.save(o);					
+				}
 			}
 			return new ResponseEntity<>("Orders Placed", HttpStatus.OK);
 		}

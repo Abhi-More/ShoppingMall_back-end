@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -58,16 +59,16 @@ public class ProductController {
 	}
 	
 	@PostMapping("addproduct")
-	public ResponseEntity<String> addProduct(@RequestParam("name") String name, @RequestParam("category") String category, 
-								@RequestParam("price") float price, @RequestParam("image") MultipartFile image)
+	public ResponseEntity<String> addProduct(@RequestParam("name") String name, @RequestParam("category") String category, @RequestParam("description") String description, 
+								@RequestParam("price") float price, @RequestParam("image") MultipartFile image, @RequestParam("discount") Integer discount)
 	{
 		try 
 		{
-            service.addProduct(name, category, price, image);
-            return ResponseEntity.ok("Product added successfully");
+            service.addProduct(name, category, price, image, description, discount);
+            return new ResponseEntity<>("Product added successfully", HttpStatus.OK);
         } 
 		catch (IOException e) {
-            return ResponseEntity.badRequest().body("Failed to add product");
+            return new ResponseEntity<>("Failed to add product", HttpStatus.BAD_REQUEST);
         }
 	}
 	
