@@ -21,7 +21,7 @@ import com.shoppingmall.demo.services.UserService;
 
 
 @RestController
-@RequestMapping("/auth")
+@RequestMapping()
 @CrossOrigin(origins = "*", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE, RequestMethod.OPTIONS})
 public class UserController {
 	@Autowired
@@ -35,51 +35,39 @@ public class UserController {
 
 	@Autowired
 	private AuthenticationManager authenticationManager;
-	
-//	@PostMapping("/signup")
-//	public String addUser(@RequestBody User user)
-//	{
-//		return service.addUser(user);
-//	}
-	
-	@GetMapping("/profile/{id}")
-	@PreAuthorize("hasAuthority('ROLE_USER')")
-	public Optional<User> getUser(@PathVariable("id") int id)
-	{
+
+
+	@GetMapping("/user/{id}")
+	@PreAuthorize("isAuthenticated()")
+	public Optional<UserInfo> getUser(@PathVariable Integer id){
 		return service.getUserById(id);
 	}
 	
-	@GetMapping("/allusers")
+	@GetMapping("/user/all-users")
 //	@PreAuthorize("hasAuthority('ROLE_USER')")
-	public List<User> getAllUsers()
+	@PreAuthorize("isAuthenticated()")
+	public List<UserInfo> getAllUsers()
 	{
 		return service.getAllUsers();
 	}
 
-	@PutMapping("/{id}")
-	@PreAuthorize("hasAuthority('ROLE_USER')")
-	public ResponseEntity<User> updateUser(@PathVariable Integer id, @RequestBody User user){
+
+	@PutMapping("/user/{id}")
+	@PreAuthorize("isAuthenticated()")
+//	@PreAuthorize("hasAuthority('ROLE_USER')")
+	public ResponseEntity<UserInfo> updateUser(@PathVariable Integer id, @RequestBody UserInfo user){
 		return service.updateUser(id,  user);
 	}
 
-	@PostMapping("/signup")
+	//implementation in UserInfoService
+	@PostMapping("/auth/register")
 	public String addNewUser(@RequestBody UserInfo userInfo) {
 		return InfoService.addUser(userInfo);
 	}
 
-	@GetMapping("/user/userProfile")
-	@PreAuthorize("hasAuthority('ROLE_USER')")
-	public String userProfile() {
-		return "Welcome to User Profile";
-	}
 
-	@GetMapping("/admin/adminProfile")
-	@PreAuthorize("hasAuthority('ROLE_ADMIN')")
-	public String adminProfile() {
-		return "Welcome to Admin Profile";
-	}
 
-	@PostMapping("/generateToken")
+	@PostMapping("/auth/login")
 	public String authenticateAndGetToken(@RequestBody AuthRequest authRequest) {
 		Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
 		System.out.println(authentication.isAuthenticated());
@@ -89,7 +77,5 @@ public class UserController {
 			throw new UsernameNotFoundException("invalid user request !");
 		}
 	}
-
-
 
 }

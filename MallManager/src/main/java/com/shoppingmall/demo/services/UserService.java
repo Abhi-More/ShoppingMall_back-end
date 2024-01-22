@@ -3,9 +3,12 @@ package com.shoppingmall.demo.services;
 import java.util.Optional;
 import java.util.List;
 
+import com.shoppingmall.demo.models.UserInfo;
+import com.shoppingmall.demo.repositories.UserInfoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.shoppingmall.demo.models.User;
@@ -15,40 +18,44 @@ import com.shoppingmall.demo.repositories.UserRepo;
 public class UserService {
 	
 	@Autowired
-	private UserRepo repo;
+	private UserInfoRepository repo;
+	@Autowired
+	private PasswordEncoder encoder;
 	
-	public Optional<User> getUserById(int id)
+	public Optional<UserInfo> getUserById(int id)
 	{
 		return repo.findById(id);
 	}
-	
-	public String addUser(User user)
-	{
-		Optional<User> userList = repo.findByemail(user.getEmail());
-		if(userList.isEmpty())
-		{
-			repo.save(user);
-			return "User added successfully.";			
-		}
-			
-		return "This email already in use. Use another email.";
-	}
 
-	public List<User> getAllUsers() {
+	// Declared in UserInfoService
+//	public String addUser(User user)
+//	{
+//		Optional<UserInfo> userList = repo.findByemail(user.getEmail());
+//		if(userList.isEmpty())
+//		{
+//			repo.save(user);
+//			return "User added successfully.";
+//		}
+//
+//		return "This email already in use. Use another email.";
+//	}
+
+	public List<UserInfo> getAllUsers() {
 		
 		return repo.findAll();
 	}
 
-	public ResponseEntity<User> updateUser(Integer id, User user) {
-		Optional<User> existingUser = repo.findById(id);
+	public ResponseEntity<UserInfo> updateUser(Integer id, UserInfo user) {
+		Optional<UserInfo> existingUser = repo.findById(id);
 
 		if(existingUser.isPresent()){
-			User newUser = existingUser.get();
+			UserInfo newUser = existingUser.get();
 			if(user.getEmail() != null){
 				newUser.setEmail(user.getEmail());
 			}
 			if(user.getPassword() != null){
 				newUser.setPassword(user.getPassword());
+				newUser.setPassword(encoder.encode(newUser.getPassword()));
 			}
 			repo.save(newUser);
 			return new ResponseEntity<>(newUser, HttpStatus.OK);
@@ -58,7 +65,7 @@ public class UserService {
 	
 	public ResponseEntity<User> deleteUser(Integer id)
 	{
-		Optional<User> existingUser = repo.findById(id);
+		Optional<UserInfo> existingUser = repo.findById(id);
 		
 		if(existingUser.isPresent())
 		{

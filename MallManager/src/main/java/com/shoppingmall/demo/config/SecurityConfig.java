@@ -38,14 +38,17 @@ public class SecurityConfig  {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/auth/**", "/products/**","/auth/generateToken/","/login/**","/employees/**").permitAll()
+                        .requestMatchers("/auth/**","/product/allproducts").permitAll()
 
                 )
                 . authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/auth/user/**").authenticated()
+                        .requestMatchers("/user/**").authenticated()
                 )
                 . authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/auth/admin/**").authenticated()
+                        .requestMatchers("/admin/**").authenticated()
+                )
+                . authorizeHttpRequests((requests) -> requests
+                        .requestMatchers("/product/addproduct/**").authenticated()
                 )
                 .csrf(crsf-> crsf.disable())
                 .sessionManagement(sessionManagement ->
