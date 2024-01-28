@@ -21,9 +21,7 @@ public class User {
 	private String password;
 	private String gender;
 	private String roles;
-	private String designation;
-	private String contactNo;
-	private String address;
+
 	
 	public User() {
 		super();

@@ -3,8 +3,11 @@ package com.shoppingmall.demo.controllers;
 import java.util.List;
 import java.util.Optional;
 
+import com.shoppingmall.demo.config.UserInfoDetails;
 import com.shoppingmall.demo.dto.AuthRequest;
+import com.shoppingmall.demo.dto.AuthenticateObj;
 import com.shoppingmall.demo.models.UserInfo;
+import com.shoppingmall.demo.repositories.UserInfoRepository;
 import com.shoppingmall.demo.services.JwtService;
 import com.shoppingmall.demo.services.UserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +38,8 @@ public class UserController {
 
 	@Autowired
 	private AuthenticationManager authenticationManager;
+	@Autowired
+	UserInfoRepository userInfoRepository;
 
 
 	@GetMapping("/user/{id}")
@@ -72,10 +77,17 @@ public class UserController {
 		Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
 		System.out.println(authentication.isAuthenticated());
 		if (authentication.isAuthenticated()) {
-			return jwtService.generateToken(authRequest.getUsername());
+			UserInfoDetails userDetails = (UserInfoDetails) authentication.getPrincipal();
+			Optional<UserInfo> user = userInfoRepository.findByemail(userDetails.getName());
+			return jwtService.generateToken(authRequest.getUsername(), user.get().getId());
 		} else {
 			throw new UsernameNotFoundException("invalid user request !");
 		}
+	}
+
+	@DeleteMapping("user/{id}")
+	public ResponseEntity<User> deleteUser(@PathVariable Integer id){
+		return service.deleteUser(id);
 	}
 
 }

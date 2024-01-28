@@ -22,8 +22,5 @@ public class UserInfo {
     private String password;
     private String gender;
     private String roles;
-    private String designation;
-    private String contactNo;
-    private String address;
 
 }

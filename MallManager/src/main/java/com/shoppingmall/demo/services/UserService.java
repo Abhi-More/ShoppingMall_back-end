@@ -27,18 +27,6 @@ public class UserService {
 		return repo.findById(id);
 	}
 
-	// Declared in UserInfoService
-//	public String addUser(User user)
-//	{
-//		Optional<UserInfo> userList = repo.findByemail(user.getEmail());
-//		if(userList.isEmpty())
-//		{
-//			repo.save(user);
-//			return "User added successfully.";
-//		}
-//
-//		return "This email already in use. Use another email.";
-//	}
 
 	public List<UserInfo> getAllUsers() {
 		
