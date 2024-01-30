@@ -17,8 +17,6 @@ public class Product
 	private String name;
 	private String category;
 	private float price;
-	private String description;
-	private int discount;
 	
 	@Lob
 	@Column(name = "image", columnDefinition="LONGBLOB")
@@ -59,22 +57,6 @@ public class Product
 
 	public void setImage(byte[] image) {
 		this.image = image;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
-
-	public int getDiscount() {
-		return discount;
-	}
-
-	public void setDiscount(int discount) {
-		this.discount = discount;
 	}
 	  
 }

@@ -8,5 +8,4 @@ import com.shoppingmall.demo.models.Orders;
 
 public interface OrderRepo extends JpaRepository<Orders, Integer>{
 	public List<Orders> findByUserId(Integer id);
-	public List<Orders> findByProductId(Integer id);
 }
