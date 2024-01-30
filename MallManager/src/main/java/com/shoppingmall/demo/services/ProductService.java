@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -75,4 +77,32 @@ public class ProductService {
 		return repo.findByCategory(category);
 	}
 
+	public ResponseEntity<Product> updateProduct(Integer id, Product product) throws IOException {
+		
+		Optional<Product> existingProduct = repo.findById(id);
+		if(existingProduct.isPresent())
+		{
+			Product newProduct = existingProduct.get();
+			newProduct.setName(product.getName());
+			newProduct.setPrice(product.getPrice());
+			newProduct.setDiscount(product.getDiscount());
+			repo.save(newProduct);
+			return new ResponseEntity<>(newProduct, HttpStatus.OK);
+		}		
+		return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+	}
+//	public ResponseEntity<Product> updateProduct(Integer id, String name, float price, Integer discount) throws IOException {
+//		
+//		Optional<Product> existingProduct = repo.findById(id);
+//		if(existingProduct.isPresent())
+//		{
+//			Product newProduct = existingProduct.get();
+//			newProduct.setName(name);
+//			newProduct.setPrice(price);
+//			newProduct.setDiscount(discount);
+//			repo.save(newProduct);
+//			return new ResponseEntity<>(newProduct, HttpStatus.OK);
+//		}		
+//		return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+//	}
 }

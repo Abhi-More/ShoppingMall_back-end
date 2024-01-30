@@ -72,4 +72,10 @@ public class ProductController {
         }
 	}
 	
+	@PutMapping("/{id}")
+	public ResponseEntity<Product> updateProduct(@PathVariable("id") int id, @RequestBody Product product) throws IOException
+	{
+			return service.updateProduct(id, product);
+	}
+	
 }
