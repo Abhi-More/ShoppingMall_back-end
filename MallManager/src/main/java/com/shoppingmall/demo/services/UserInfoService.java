@@ -5,6 +5,8 @@ import com.shoppingmall.demo.models.UserInfo;
 import com.shoppingmall.demo.repositories.UserInfoRepository;
 import com.shoppingmall.demo.repositories.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -32,10 +34,22 @@ public class UserInfoService implements UserDetailsService {
                 .orElseThrow(() -> new UsernameNotFoundException("User not found " + username));
     }
 
-    public String addUser(UserInfo userInfo) {
-        userInfo.setPassword(encoder.encode(userInfo.getPassword()));
-        repository.save(userInfo);
-        return "User Added Successfully";
+    public ResponseEntity<String> addUser(UserInfo userInfo) {
+
+        try{
+            if (repository.findByemail(userInfo.getEmail()).isPresent()) {
+                return new ResponseEntity<>("User already exists with same email", HttpStatus.CONFLICT);
+            }
+
+            userInfo.setPassword(encoder.encode(userInfo.getPassword()));
+            repository.save(userInfo);
+            return new ResponseEntity<>("User added successfully", HttpStatus.CREATED);
+        }
+        catch(IllegalArgumentException e){
+            return new ResponseEntity<>("Something went wrong", HttpStatus.BAD_REQUEST);
+        }
+
+
     }
 
 

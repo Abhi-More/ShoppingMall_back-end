@@ -12,7 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.shoppingmall.demo.models.User;
-import com.shoppingmall.demo.repositories.UserRepo;
+
 
 @Service
 public class UserService {

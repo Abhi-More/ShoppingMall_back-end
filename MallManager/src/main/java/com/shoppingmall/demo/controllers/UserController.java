@@ -5,7 +5,6 @@ import java.util.Optional;
 
 import com.shoppingmall.demo.config.UserInfoDetails;
 import com.shoppingmall.demo.dto.AuthRequest;
-import com.shoppingmall.demo.dto.AuthenticateObj;
 import com.shoppingmall.demo.models.UserInfo;
 import com.shoppingmall.demo.repositories.UserInfoRepository;
 import com.shoppingmall.demo.services.JwtService;
@@ -66,7 +65,7 @@ public class UserController {
 
 	//implementation in UserInfoService
 	@PostMapping("/auth/register")
-	public String addNewUser(@RequestBody UserInfo userInfo) {
+	public ResponseEntity<String> addNewUser(@RequestBody UserInfo userInfo) {
 		return InfoService.addUser(userInfo);
 	}
 
