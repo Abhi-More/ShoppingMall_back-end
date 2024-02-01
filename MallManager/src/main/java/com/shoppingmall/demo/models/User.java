@@ -18,6 +18,8 @@ public class User {
 	private String password;
 	private String gender;
 	private String roles;
+	private String contactNo;
+	private String address;
 
 	public Integer getId() {
 		return id;
@@ -69,6 +71,22 @@ public class User {
 
 	public User() {
 		super();
+	}
+
+	public String getContactNo() {
+		return contactNo;
+	}
+
+	public void setContactNo(String contactNo) {
+		this.contactNo = contactNo;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
 	}
 
 }

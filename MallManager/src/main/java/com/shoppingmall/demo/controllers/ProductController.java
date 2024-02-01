@@ -24,7 +24,7 @@ public class ProductController {
 	@Autowired
 	private ProductService service;
 	
-	@GetMapping("/{id}")
+	@GetMapping("/get/{id}")
 	public Optional<Product> getById(@PathVariable("id") Integer id)
 	{
 		return service.getProduct(id);

@@ -20,6 +20,8 @@ public class UserInfo {
     private String password;
     private String gender;
     private String roles;
+    private String contactNo;
+    private String address;
 
     public Integer getId() {
         return id;
@@ -68,6 +70,22 @@ public class UserInfo {
     public void setRoles(String roles) {
         this.roles = roles;
     }
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getContactNo() {
+		return contactNo;
+	}
+
+	public void setContactNo(String contactNo) {
+		this.contactNo = contactNo;
+	}
 
 
 
