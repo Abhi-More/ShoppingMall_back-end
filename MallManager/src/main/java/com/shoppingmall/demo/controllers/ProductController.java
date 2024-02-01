@@ -59,7 +59,7 @@ public class ProductController {
 		return service.deleteProduct(id);
 	}
 	
-	@PostMapping("addproduct")
+	@PostMapping("/addproduct")
 	@PreAuthorize("isAuthenticated()")
 	
 	public ResponseEntity<String> addProduct(@RequestParam("name") String name, @RequestParam("category") String category, @RequestParam("description") String description, 
@@ -75,7 +75,7 @@ public class ProductController {
         }
 	}
 	
-	@PutMapping("/{id}")
+	@PutMapping("/update/{id}")
 	public ResponseEntity<Product> updateProduct(@PathVariable("id") int id, @RequestBody Product product) throws IOException
 	{
 			return service.updateProduct(id, product);
