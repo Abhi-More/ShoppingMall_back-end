@@ -3,6 +3,7 @@ package com.shoppingmall.demo.controllers;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,42 +28,49 @@ public class OrderController {
 	OrderService orderService;
 	
 	@PostMapping("/add")
+	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity<Orders> addOrder(@RequestBody Orders order)
 	{
 		return orderService.addOrder(order);
 	}
 	
 	@GetMapping("/{uid}")
+	@PreAuthorize("isAuthenticated()")
 	public List<OrderProduct> getByUserId(@PathVariable Integer uid)
 	{		
 		return orderService.getByUserId(uid);
 	}
 	
 	@GetMapping("/{uid}/pending")
+	@PreAuthorize("isAuthenticated()")
 	public List<OrderProduct> getPendingByUserId(@PathVariable Integer uid)
 	{		
 		return orderService.getPendingByUserId(uid);
 	}
 	
 	@GetMapping("/{uid}/placed")
+	@PreAuthorize("isAuthenticated()")
 	public List<OrderProduct> getPlacedByUserId(@PathVariable Integer uid)
 	{		
 		return orderService.getPlacedByUserId(uid);
 	}
 	
 	@GetMapping("/all")
+	@PreAuthorize("isAuthenticated()")
 	public List<OrderProduct> getAllOrders()
 	{		
 		return orderService.getAllOrders();
 	}
 	
 	@DeleteMapping("/delete/{id}")
+	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity<String> deleteOrder(@PathVariable Integer id)
 	{
 		return orderService.deleteOrder(id);
 	}
 	
 	@PutMapping("/{uid}")
+	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity<String> updateStatus(@PathVariable Integer uid)
 	{
 		return orderService.updateOrder(uid);

@@ -40,7 +40,7 @@ public class SecurityConfig  {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/auth/**","/product/allproducts").permitAll()
+                        .requestMatchers("/auth/**","/product/allproducts/**", "/product/{id}/**").permitAll()
 
                 )
                 . authorizeHttpRequests((requests) -> requests
@@ -52,6 +52,12 @@ public class SecurityConfig  {
                 . authorizeHttpRequests((requests) -> requests
                         .requestMatchers("/product/addproduct/**").authenticated()
                 )
+                . authorizeHttpRequests((requests) -> requests
+                		.requestMatchers("/employee/**").authenticated()
+                		)
+                . authorizeHttpRequests((requests) -> requests
+                		.requestMatchers("/order/**").authenticated()
+                		)
                 .csrf(crsf-> crsf.disable())
                 .sessionManagement(sessionManagement ->
                         sessionManagement

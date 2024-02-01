@@ -16,7 +16,6 @@ public class Employee {
 	private String dateOfJoining;
 	private float salary;
 	private String address;
-	private String password;
 
 	private String designation;
 
@@ -26,14 +25,6 @@ public class Employee {
 
 	public void setEmail(String email) {
 		this.email = email;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
 	}
 
 	public int getEmpId() {

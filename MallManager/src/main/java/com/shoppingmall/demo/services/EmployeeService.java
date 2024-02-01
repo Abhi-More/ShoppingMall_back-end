@@ -19,13 +19,18 @@ public class EmployeeService {
 
 	public ResponseEntity<String> addEmployee(Employee employee) {
 
-		if (repo.findByemail(employee.getEmail()).isPresent()) {
-			return new ResponseEntity<>("User already exists with same email", HttpStatus.CONFLICT);
-		}
+		try {
+			if (repo.findByemail(employee.getEmail()).isPresent()) {
+				return new ResponseEntity<>("User already exists with same email", HttpStatus.CONFLICT);
+			}
 
-		// If contactNo is unique, save the employee
-		repo.save(employee);
-		return new ResponseEntity<>("Employee added successfully", HttpStatus.CREATED);
+			// If contactNo is unique, save the employee
+			repo.save(employee);
+			return new ResponseEntity<>("Employee added successfully", HttpStatus.CREATED);
+		}
+		catch(Exception e) {
+			return new ResponseEntity<String>(e.getMessage(),HttpStatus.BAD_REQUEST);
+		}
 	}
 
 	public List<Employee> getAllEmployee()

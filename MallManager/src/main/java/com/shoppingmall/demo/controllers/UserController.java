@@ -85,6 +85,7 @@ public class UserController {
 	}
 
 	@DeleteMapping("user/{id}")
+	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity<User> deleteUser(@PathVariable Integer id){
 		return service.deleteUser(id);
 	}

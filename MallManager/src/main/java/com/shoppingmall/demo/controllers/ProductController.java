@@ -54,6 +54,7 @@ public class ProductController {
 	}
 	
 	@DeleteMapping("/delete/{id}")
+	@PreAuthorize("isAuthenticated()")
 	public String deleteProduct(@PathVariable int id)
 	{
 		return service.deleteProduct(id);
@@ -74,7 +75,8 @@ public class ProductController {
         }
 	}
 	
-	@PutMapping("/{id}")
+	@PutMapping("/update/{id}")
+	@PreAuthorize("isAuthenticated()")
 	public ResponseEntity<Product> updateProduct(@PathVariable("id") int id, @RequestBody Product product) throws IOException
 	{
 			return service.updateProduct(id, product);

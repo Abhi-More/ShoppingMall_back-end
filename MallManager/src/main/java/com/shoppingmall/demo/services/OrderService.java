@@ -107,9 +107,9 @@ public class OrderService {
 		if(existingOrder.isPresent())
 		{
 			orderRepo.deleteById(id);
-			return new ResponseEntity<>(HttpStatus.OK);
+			return new ResponseEntity<>("Order Deleted", HttpStatus.OK);
 		}
-		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		return new ResponseEntity<>("Order Not Found", HttpStatus.NOT_FOUND);
 	}
 	
 	public ResponseEntity<String> updateOrder(Integer uid)
