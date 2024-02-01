@@ -60,8 +60,9 @@ public class ProductController {
 	
 	@PostMapping("addproduct")
 	@PreAuthorize("isAuthenticated()")
-	public ResponseEntity<String> addProduct(@RequestParam("name") String name, @RequestParam("category") String category, 
-								@RequestParam("price") float price, @RequestParam("image") MultipartFile image)
+	
+	public ResponseEntity<String> addProduct(@RequestParam("name") String name, @RequestParam("category") String category, @RequestParam("description") String description, 
+								@RequestParam("price") float price, @RequestParam("image") MultipartFile image, @RequestParam("discount") Integer discount)
 	{
 		try 
 		{
