@@ -25,12 +25,13 @@ public class JwtService {
     }
 
     private String createToken(Map<String, Object> claims, String userName, Integer id) {
+        long expirationTimeMillis = System.currentTimeMillis() + (10L * 24L * 60L * 60L * 1000L);
         return Jwts.builder()
                 .setClaims(claims)
                 .setSubject(userName)
                 .claim("id", id)
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 30))
+                .setExpiration(new Date(expirationTimeMillis))
                 .signWith(getSignKey(), SignatureAlgorithm.HS256).compact();
     }
 
