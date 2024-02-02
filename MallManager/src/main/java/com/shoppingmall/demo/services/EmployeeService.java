@@ -65,16 +65,16 @@ public class EmployeeService {
 		if (existingEmployee.isPresent()) {
 			Employee newEmp = existingEmployee.get();
 
-			if(emp.getName().length() > 0){
+			if(emp.getName().isEmpty()){
 				newEmp.setName(emp.getName());
 			}
-			if(emp.getEmail().length() > 0){
+			if(emp.getEmail().isEmpty()){
 				newEmp.setEmail(emp.getEmail());
 			}
-			if(emp.getContactNo().length() > 0){
+			if(emp.getContactNo().isEmpty()){
 				newEmp.setContactNo(emp.getContactNo());
 			}
-			if(emp.getAddress().length() > 0){
+			if(emp.getAddress().isEmpty()){
 				newEmp.setAddress(emp.getAddress());
 			}
 //			newEmp.setEmpId(emp.getEmpId());
