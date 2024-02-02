@@ -41,9 +41,14 @@ public class UserService {
 			if(user.getEmail() != null){
 				newUser.setEmail(user.getEmail());
 			}
-			if(user.getPassword() != null){
-				newUser.setPassword(user.getPassword());
-				newUser.setPassword(encoder.encode(newUser.getPassword()));
+			if(user.getName() != null){
+				newUser.setName(user.getName());
+			}
+			if(user.getAddress() != null){
+				newUser.setAddress(user.getAddress());
+			}
+			if(user.getContactNo() != null){
+				newUser.setContactNo(user.getContactNo());
 			}
 			repo.save(newUser);
 			return new ResponseEntity<>(newUser, HttpStatus.OK);
