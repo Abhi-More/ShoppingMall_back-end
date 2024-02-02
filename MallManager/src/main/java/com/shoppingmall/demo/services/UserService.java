@@ -38,7 +38,7 @@ public class UserService {
 
 		if(existingUser.isPresent()){
 			UserInfo newUser = existingUser.get();
-			if(user.getEmail() != null){
+			if(user.getEmail() != null && !user.getEmail().isEmpty()){
 				newUser.setEmail(user.getEmail());
 			}
 			if(user.getName() != null && !user.getName().isEmpty()){
