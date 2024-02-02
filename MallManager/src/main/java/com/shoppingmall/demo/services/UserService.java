@@ -38,16 +38,16 @@ public class UserService {
 
 		if(existingUser.isPresent()){
 			UserInfo newUser = existingUser.get();
-			if(user.getEmail().length() > 0){
+			if(user.getEmail() != null){
 				newUser.setEmail(user.getEmail());
 			}
-			if(user.getName().length() > 0){
+			if(user.getName() != null && !user.getName().isEmpty()){
 				newUser.setName(user.getName());
 			}
-			if(user.getAddress().length() > 0){
+			if(user.getAddress() != null && !user.getAddress().isEmpty()){
 				newUser.setAddress(user.getAddress());
 			}
-			if(user.getContactNo().length() > 0){
+			if(user.getContactNo() != null && !user.getContactNo().isEmpty()){
 				newUser.setContactNo(user.getContactNo());
 			}
 			repo.save(newUser);
